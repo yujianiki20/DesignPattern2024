@@ -1,0 +1,14 @@
+/Users/mori/repos/design/MydesignSample/bin/Debug/net9.0/MydesignSample
+/Users/mori/repos/design/MydesignSample/bin/Debug/net9.0/MydesignSample.deps.json
+/Users/mori/repos/design/MydesignSample/bin/Debug/net9.0/MydesignSample.runtimeconfig.json
+/Users/mori/repos/design/MydesignSample/bin/Debug/net9.0/MydesignSample.dll
+/Users/mori/repos/design/MydesignSample/bin/Debug/net9.0/MydesignSample.pdb
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.AssemblyInfoInputs.cache
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.AssemblyInfo.cs
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.csproj.CoreCompileInputs.cache
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.dll
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/refint/MydesignSample.dll
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.pdb
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.genruntimeconfig.cache
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/ref/MydesignSample.dll
