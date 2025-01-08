@@ -6,8 +6,9 @@ namespace AdapterPatternExample
     // target
     public interface IDisplayTimer
     {
-        string GetFormattedTime();
         int Countdown();
+        string GetFormattedTime();
+        
     }
 
     // adaptee: 
