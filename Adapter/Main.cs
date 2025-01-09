@@ -71,7 +71,7 @@ namespace AdapterPatternExample
     
             public int Next()
         {
-            return base.Count(true);
+            return endTime - (base.Count(true) - endTime);
         }
         public string GetFormattedTime()
         {
