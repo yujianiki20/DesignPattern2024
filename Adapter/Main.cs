@@ -6,7 +6,7 @@ namespace AdapterPatternExample
     // target
     public interface IDisplayTimer
     {
-        int Countdown();
+        int Next();
         string GetFormattedTime();
         
     }
@@ -14,24 +14,27 @@ namespace AdapterPatternExample
     // adaptee: 
     public class Timer
     {
-        private int _remainingSeconds;
+        private int _countSeconds;
         public Timer(int seconds)
         {
-            _remainingSeconds = seconds;
+            _countSeconds = seconds;
         }
 
-        public int Reduce()
+        public int Count(bool isCountUp)
         {
-            if (_remainingSeconds > 0)
+            if (isCountUp)
             {
-                _remainingSeconds--;
+                _countSeconds++;
             }
-            return _remainingSeconds;
+            else
+            {
+                _countSeconds--;
+            }
+            return _countSeconds;
         }
-
         public int GetRemainingSeconds()
         {
-            return _remainingSeconds;
+            return _countSeconds;
         }
     }
 
@@ -42,9 +45,9 @@ namespace AdapterPatternExample
         {
         }
 
-        public int Countdown()
+        public int Next()
         {
-            return base.Reduce();
+            return base.Count(false);
         }
         public string GetFormattedTime()
         {
@@ -57,6 +60,29 @@ namespace AdapterPatternExample
         }
     }
 
+    public class CountUpAdapter : Timer, IDisplayTimer
+    {
+            private int endTime;
+    
+            public CountUpAdapter(int seconds) : base(seconds)
+            {
+                endTime = seconds;
+            }
+    
+            public int Next()
+        {
+            return base.Count(true);
+        }
+        public string GetFormattedTime()
+        {
+            int totalSeconds = GetRemainingSeconds() - endTime;
+            int hours = totalSeconds / 3600;
+            int minutes = (totalSeconds % 3600) / 60;
+            int seconds = totalSeconds % 60;
+
+            return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+        }
+    }
     // main
     class Program
     {
@@ -65,9 +91,9 @@ namespace AdapterPatternExample
             Console.WriteLine("秒数を入力してください");
             if (int.TryParse(Console.ReadLine(), out int totalSeconds))
             {
-                IDisplayTimer timer = new FormatTimer(totalSeconds);
+                IDisplayTimer timer = new CountUpAdapter(totalSeconds);
 
-                while (timer.Countdown() > 0)
+                while (timer.Next() > 0)
                 {
                     Console.WriteLine(timer.GetFormattedTime());
                     Thread.Sleep(1000); // 1秒待つ
