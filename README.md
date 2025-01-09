@@ -17,5 +17,6 @@
 
 ### adapterパターンに適したadapteeに修正
 <img width="808" alt="image" src="https://github.com/user-attachments/assets/03bc3b27-9f10-4f53-99b0-4eee4fc3c90c" />
+
 adaptee役のTimerクラスのメソッドに引数を必要とするよう変更して、Mainのコードは変えずにadapterの修正だけで同じ動作をできるようにしました。
 カウトダウンだけでなく、カウントアップができるadapterも追加しました。
