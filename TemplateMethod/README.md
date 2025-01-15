@@ -5,4 +5,4 @@
 時間によって照明のオンオフと朝昼晩に割り当てられた照明の処理を行うシステムです。
 照明のスケジュールが固定で、具体的な照明のセッティングはサブクラスに任せています。
 ## クラス図
-<img width="562" alt="image" src="https://github.com/user-attachments/assets/5680eb23-1e88-47f0-9f29-571058015565" />
+<img width="580" alt="image" src="https://github.com/user-attachments/assets/2d7a9d28-14a3-474c-88a2-632c5057a1e1" />
