@@ -5,27 +5,31 @@ namespace TemplateMethodPattern
     // target
     public abstract class AbstractLighting
     {
+        protected virtual int OnTime { get; set; } = 7;
+        protected virtual int SwitchDaytime { get; set; } = 11;
+        protected virtual int SwitchNight { get; set; } = 18;
+        protected virtual int OffTime { get; set; } = 24;
         public abstract void Morning();
         public abstract void Daytime();
         public abstract void Night();
         public void Off()
         {
-            Console.WriteLine("消灯");
+            Console.Write("消灯");
         }
-        public void set()
+        public virtual void set()
         {
             for (int i = 0; i <= 24; i++){
                 Console.Write($"時刻: {i} ");
-                if (i == 7){
+                if (i == OnTime){
                     Morning();
                 }
-                else if (i == 11){
+                else if (i == SwitchDaytime){
                     Daytime();
                 }
-                else if (i == 18){
+                else if (i == SwitchNight){
                     Night();
                 }
-                else if (i == 24){
+                else if (i == OffTime){
                     Off();
                 }
                 Console.WriteLine();
@@ -64,6 +68,11 @@ namespace TemplateMethodPattern
             Console.Write("オレンジの照明をつける");
         }
     }
+
+    public class LightingC : LightingB
+    {
+        protected override int OffTime { get; set; } = 22;
+    }
     // main
     class Program
     {
@@ -74,6 +83,9 @@ namespace TemplateMethodPattern
             Console.WriteLine("----");
             AbstractLighting lighting2 = new LightingB();
             lighting2.set();
+            Console.WriteLine("----");
+            LightingC lighting3 = new LightingC();
+            lighting3.set();
         }
     }
 }
