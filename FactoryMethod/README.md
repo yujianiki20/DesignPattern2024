@@ -7,3 +7,4 @@
 - 画像の加工処理をファクトリーメソッドを適用することで、画像の処理の部分を差し替えができます。
 
 # クラス図
+<img width="865" alt="image" src="https://github.com/user-attachments/assets/a0a2690f-a810-4055-be0c-a15914601810" />
