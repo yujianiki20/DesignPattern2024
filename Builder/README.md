@@ -10,3 +10,4 @@
 
 
 # クラス図
+<img width="815" alt="image" src="https://github.com/user-attachments/assets/0ac02969-325f-4946-a1cd-b72432bf8a44" />
