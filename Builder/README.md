@@ -10,4 +10,5 @@
 
 
 # クラス図
-<img width="810" alt="image" src="https://github.com/user-attachments/assets/bc284587-dc53-4bbb-a1f3-1605c1d411b6" />
+
+<img width="816" alt="image" src="https://github.com/user-attachments/assets/6c5835dd-6bd8-4334-a203-64524920c2cc" />
