@@ -91,7 +91,7 @@ namespace AdapterPatternExample
             Console.WriteLine("秒数を入力してください");
             if (int.TryParse(Console.ReadLine(), out int totalSeconds))
             {
-                IDisplayTimer timer = new CountUpAdapter(totalSeconds);
+                IDisplayTimer timer = new FormatTimer(totalSeconds);
 
                 while (timer.Next() > 0)
                 {

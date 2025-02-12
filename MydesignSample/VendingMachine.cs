@@ -16,6 +16,10 @@ namespace MydesignSample
         public VendingMachine(int initialSize){
             drinks = new List<Drink>(initialSize);
         }
+
+        public List<Drink> GetDrinks(){
+            return drinks;
+        }
         public Drink GetDrink(int index){
             return drinks[index];
         }

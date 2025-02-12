@@ -9,7 +9,10 @@ namespace Framework
             return image;
         }
         protected abstract Image LoadImage(string input);
-        protected abstract Image ProcessImage(Image image);
+        protected virtual Image ProcessImage(Image image){
+            image.process();
+            return image;
+        }
     }
     public abstract class Image{
         public abstract void process();

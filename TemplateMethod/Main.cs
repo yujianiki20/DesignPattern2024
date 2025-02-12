@@ -5,10 +5,10 @@ namespace TemplateMethodPattern
     // target
     public abstract class AbstractLighting
     {
-        protected virtual int OnTime { get; set; } = 7;
-        protected virtual int SwitchDaytime { get; set; } = 11;
-        protected virtual int SwitchNight { get; set; } = 18;
-        protected virtual int OffTime { get; set; } = 24;
+        protected virtual int OnTime { get; } = 7;
+        protected virtual int SwitchDaytime { get; } = 11;
+        protected virtual int SwitchNight { get;} = 18;
+        protected virtual int OffTime { get; } = 24;
         public abstract void Morning();
         public abstract void Daytime();
         public abstract void Night();
@@ -16,7 +16,7 @@ namespace TemplateMethodPattern
         {
             Console.Write("消灯");
         }
-        public virtual void set()
+        public void set()
         {
             for (int i = 0; i <= 24; i++){
                 Console.Write($"時刻: {i} ");
@@ -71,7 +71,7 @@ namespace TemplateMethodPattern
 
     public class LightingC : LightingB
     {
-        protected override int OffTime { get; set; } = 22;
+        protected override int OffTime { get; } = 22;
     }
     // main
     class Program

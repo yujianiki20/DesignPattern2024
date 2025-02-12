@@ -12,3 +12,4 @@
 /Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.pdb
 /Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.genruntimeconfig.cache
 /Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/ref/MydesignSample.dll
+/Users/mori/repos/design/MydesignSample/obj/Debug/net9.0/MydesignSample.sourcelink.json

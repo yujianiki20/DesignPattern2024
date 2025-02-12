@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace SingletonPattern
 {
@@ -26,6 +27,7 @@ namespace SingletonPattern
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Record(string playerChoice, string cpuChoice, string result)
         {
             _playerChoice.Add(playerChoice);

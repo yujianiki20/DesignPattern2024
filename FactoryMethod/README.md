@@ -22,3 +22,4 @@ JAVAではアクセス修飾子を省略すると package privateとなり、同
 
 
 C#の場合だとinternalが近いがnamespaceを超えてアクセスできてしまうのでアセンブリを分ける必要がある。
+namespaceに制限するアクセス修飾子はない

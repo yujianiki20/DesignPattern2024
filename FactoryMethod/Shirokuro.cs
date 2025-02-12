@@ -35,10 +35,5 @@ namespace Shirokuro
         {
             return new Shirokuro(input);
         }
-        protected override Image ProcessImage(Image image)
-        {
-            image.process();
-            return image;
-        }
     }
 }
