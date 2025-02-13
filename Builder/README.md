@@ -14,4 +14,4 @@
 <img width="816" alt="image" src="https://github.com/user-attachments/assets/6c5835dd-6bd8-4334-a203-64524920c2cc" />
 
 # 改良版クラス図
-![image](https://github.com/user-attachments/assets/433d7217-50c3-4cb2-8925-559cb224feb0)
+![image](https://github.com/user-attachments/assets/32ec0cfb-0c1e-44c4-b67f-c1dc57038354)
