@@ -7,5 +7,5 @@
 ゲームコントローラーの定義システムです
 抽象的な部品としてボタンの役割をクラスにして、それを継承して実際の役割を持たせています。
 
-
+## クラス図
 https://app.diagrams.net/#G1u44nu3uzyP_Vdwq_1nObkUA7OdCJMY1Z#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D
