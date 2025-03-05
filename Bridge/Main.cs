@@ -12,8 +12,6 @@ public class Counter {
     public Dictionary<string, int> GetScores(){
         return _impl.RowGetScores();
     }
-
-    
 }
 
 public class CounterDisplay : Counter {
@@ -49,7 +47,7 @@ public class SoccerScoring : CounterImpl {
 }
 
 public class TennisScoring : CounterImpl {
-    private string[] _scores = { "0", "15", "30", "40" };
+    private int[] _scores = { 0, 15, 30, 40 };
     private int _count1 = 0, _count2 = 0;
     public override void RowAdd() {
         if (_count1 < _scores.Length - 1) {
@@ -64,8 +62,8 @@ public class TennisScoring : CounterImpl {
 
     public override Dictionary<string, int> RowGetScores(){
         return new Dictionary<string, int>(){
-            {"得点", _count1},
-            {"失点", _count2}
+            {"自分", _scores[_count1]},
+            {"相手", _scores[_count2]}
         };
     }
 }
@@ -80,7 +78,7 @@ class Program {
         Dictionary<string, int> scores = soccerCounter.GetScores();
         Console.WriteLine(string.Join(" | ", scores.Select(score => $"{score.Key}: {score.Value}")));
         
-
+        Console.WriteLine("-----");
         Counter tennisCounter = new Counter(new TennisScoring());
         CounterDisplay tennisDisplay = new CounterDisplay(new TennisScoring());
         tennisDisplay.Add();

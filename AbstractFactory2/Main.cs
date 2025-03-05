@@ -37,7 +37,7 @@ public class Program{
         rightButton.GetDescription();
         rightButton.GetRole();
 
-        Dictionary<ConsoleKey, Action> keyActions = new Dictionary<ConsoleKey, Action>()
+        Dictionary<ConsoleKey, Action> keyActions = new Dictionary<ConsoleKey, Action>()//ディスパッチテーブル
         {
             { ConsoleKey.A, () => primaryButton.Execute() },
             { ConsoleKey.B, () => secondaryButton.Execute() },

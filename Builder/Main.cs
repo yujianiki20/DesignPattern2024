@@ -5,6 +5,7 @@ public abstract class Builder
     protected int _temperature;
     protected string _drink = "";
     
+    public abstract Dictionary<int, string> GetOptions();
     public abstract void SetDrink();
     protected abstract void SetDefaultTemperature();
     public abstract void AdjustTemperature(string level);
@@ -12,11 +13,7 @@ public abstract class Builder
     {
         _drink += $"({_temperature}℃)";
     }
-    public abstract object Extract();
-    public void PrintDrink()
-    {
-        Console.WriteLine(_drink);
-    }
+    public abstract string Extract();
 }
 
 public class CoffeeBuilder : Builder
@@ -26,6 +23,15 @@ public class CoffeeBuilder : Builder
         _drink += "コーヒー";
         SetDefaultTemperature();
     }
+
+    public override Dictionary<int, string> GetOptions()
+    {
+        return new Dictionary<int, string>
+        {
+            {1, "ホット"},
+            {2, "アイス"}
+        };
+    }
     
     protected override void SetDefaultTemperature()
     {
@@ -34,16 +40,17 @@ public class CoffeeBuilder : Builder
 
     public override void AdjustTemperature(string level)
     {
-        if (level == "熱め")
+        _drink += level;
+        if (level == "ホット")
             _temperature += 5;
-        else if (level == "ぬるめ")
-            _temperature -= 10;
+        else if (level == "アイス")
+            _temperature -= 85;
     }
 
-    public override Builder Extract()
+    public override string Extract()
     {
         _drink += " 抽出完了！";
-        return this;
+        return _drink;
     }
 }
 
@@ -54,7 +61,15 @@ public class TeaBuilder : Builder
         _drink = "お茶";
         SetDefaultTemperature();
     }
-    
+    public override Dictionary<int, string> GetOptions()
+    {
+        return new Dictionary<int, string>
+        {
+            {1, "熱め"},
+            {2, "ぬるめ"},
+            {3, "普通"}
+        };
+    }
     protected override void SetDefaultTemperature()
     {
         _temperature = 65;
@@ -68,10 +83,10 @@ public class TeaBuilder : Builder
             _temperature -= 10;
     }
 
-    public override Builder Extract()
+    public override string Extract()
     {
         _drink += " 抽出完了！";
-        return this;
+        return _drink;
     }
 }
 
@@ -82,7 +97,16 @@ public class MilkBuilder : Builder
         _drink = "ミルク";
         SetDefaultTemperature();
     }
-    
+    public override Dictionary<int, string> GetOptions()
+    {
+        return new Dictionary<int, string>
+        {
+            {1, "熱め"},
+            {2, "ぬるめ"},
+            {3, "普通"}
+        };
+    }
+
     protected override void SetDefaultTemperature()
     {
         _temperature = 40;
@@ -96,10 +120,50 @@ public class MilkBuilder : Builder
             _temperature -= 5;
     }
 
-    public override Builder Extract()
+    public override string Extract()
     {
         _drink += " 抽出完了！";
-        return this;
+        return _drink;
+    }
+}
+
+public class CocaColaBuilder : Builder
+{
+    public override void SetDrink()
+    {
+        _drink = "コカコーラ";
+        SetDefaultTemperature();
+    }
+    public override Dictionary<int, string> GetOptions()
+    {
+        return new Dictionary<int, string>
+        {
+            {1, "氷あり"},
+            {2, "氷なし"},
+            {3, "ホット"}
+        };
+    }
+
+    protected override void SetDefaultTemperature()
+    {
+        _temperature = 10;
+    }
+
+    public override void AdjustTemperature(string level)
+    {
+        _drink += level;
+        if (level == "氷あり")
+            _temperature -= 5;
+        else if (level == "氷なし")
+            _drink += " 氷なし";
+        else if (level == "ホット")
+            _temperature += 70;
+    }
+
+    public override string Extract()
+    {
+        _drink += " カップにはいりました！";
+        return _drink;
     }
 }
 
@@ -112,14 +176,19 @@ public class DrinkDirector
         _builder = builder;
     }
 
-    public void Construct(string heatLevel)
+    public Dictionary<int, string> GetOptions()
+    {
+        return _builder.GetOptions();
+    }
+    public string Construct(string heatLevel)
     {
         _builder.SetDrink();
         _builder.AdjustTemperature(heatLevel);
         _builder.Heat();
-        _builder.Extract();
+        return _builder.Extract();
     }
 }
+
 
 public class Program 
 {
@@ -127,7 +196,7 @@ public class Program
     {
         while (true)
         {
-            Console.WriteLine("選択してください: 1. コーヒー 2. お茶 3. ミルク");
+            Console.WriteLine("選択してください: 1. コーヒー 2. お茶 3. ミルク 4. コカコーラ");
             string? input = Console.ReadLine();
             Builder? builder = null;
 
@@ -142,31 +211,31 @@ public class Program
                 case "3":
                     builder = new MilkBuilder();
                     break;
+                case "4":
+                    builder = new CocaColaBuilder();
+                    break;
                 default:
                     Console.WriteLine("終了");
                     return;
             }
 
             DrinkDirector director = new DrinkDirector(builder);
-            Console.WriteLine("温度レベルを選択してください: 1 熱め / 2 ぬるめ / 3 普通");
-            string? heatLevel = Console.ReadLine();
-            switch (heatLevel)
+            // Console.WriteLine("温度レベルを選択してください: 1 熱め / 2 ぬるめ / 3 普通");
+            var options = director.GetOptions();
+            Console.WriteLine("オプションを選択してください");
+            Console.WriteLine(string.Join(", ", options.Select(o => $"{o.Key}: {o.Value}")));
+            string? selectedOption = Console.ReadLine();
+            // 選択した値が存在しない場合は終了
+            if (string.IsNullOrEmpty(selectedOption))
             {
-                case "1":
-                    director.Construct("熱め");
-                    break;
-                case "2":
-                    director.Construct("ぬるめ");
-                    break;
-                case "3":
-                    director.Construct("普通");
-                    break;
-                default:
-                    Console.WriteLine("終了");
-                    return;
+                Console.WriteLine("終了");
+                return;
             }
+            
+            string drinkCup = director.Construct(options[int.Parse(selectedOption)]);
+
             Console.WriteLine("...");
-            builder.PrintDrink();
+            Console.WriteLine(drinkCup);
             Console.WriteLine();
         }
     }
