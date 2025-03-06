@@ -24,10 +24,10 @@ public class CounterDisplay : Counter {
 }
 
 public class CounterLog : CounterDisplay {
-    private List<Dictionary<string, int>> _logs = new List<Dictionary<string, int>>();
+    protected List<Dictionary<string, int>> _logs = new List<Dictionary<string, int>>();
     public CounterLog(CounterImpl impl) : base(impl) {
     }
-    public void Logging() {
+    private void Logging() {
         _logs.Add(GetScores());
     }
     public void LoggingAdd() {
