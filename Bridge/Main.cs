@@ -23,6 +23,30 @@ public class CounterDisplay : Counter {
     }
 }
 
+public class CounterLog : CounterDisplay {
+    private List<Dictionary<string, int>> _logs = new List<Dictionary<string, int>>();
+    public CounterLog(CounterImpl impl) : base(impl) {
+    }
+    public void Logging() {
+        _logs.Add(GetScores());
+    }
+    public void LoggingAdd() {
+        Add();
+        Logging();
+    }
+
+    public void LoggingLose() {
+        Lose();
+        Logging();
+    }
+    
+    public void ShowLogs() {
+        foreach (var log in _logs) {
+            Console.WriteLine(string.Join(" | ", log.Select(score => $"{score.Key}: {score.Value}")));
+        }
+    }
+}
+
 public abstract class CounterImpl {
     public abstract void RowAdd();
     public abstract void RowLose();
@@ -68,10 +92,25 @@ public class TennisScoring : CounterImpl {
     }
 }
 
+public class CoinGameScoring : CounterImpl  {
+    private int _count1 = 10;
+    public override void RowAdd() {
+        _count1++;
+    }
+    public override void RowLose() {
+        _count1--;
+    }
+    public override Dictionary<string, int> RowGetScores(){
+        return new Dictionary<string, int>(){
+            {"ポイント", _count1}
+        };
+    }
+}
+
 class Program {
     static void Main(string[] args) {
         Counter soccerCounter = new Counter(new SoccerScoring());
-        CounterDisplay soccerDisplay = new CounterDisplay(new SoccerScoring());
+        //CounterDisplay soccerDisplay = new CounterDisplay(new SoccerScoring());
         soccerCounter.Add();
         soccerCounter.Add();
         soccerCounter.Lose();
@@ -81,12 +120,28 @@ class Program {
         Console.WriteLine("-----");
         Counter tennisCounter = new Counter(new TennisScoring());
         CounterDisplay tennisDisplay = new CounterDisplay(new TennisScoring());
-        tennisDisplay.Add();
-        tennisDisplay.Add();
-        tennisDisplay.Add();
+        CounterLog tennisLog = new CounterLog(new TennisScoring());
+        tennisLog.LoggingAdd();
+        tennisLog.LoggingAdd();
+        tennisLog.LoggingAdd();
         
-        tennisDisplay.Lose();
+        tennisLog.LoggingLose();
+        tennisLog.ShowLogs();
+
+        Console.WriteLine("-----");
         tennisDisplay.Show();
-        tennisDisplay.GetScores();
+        //tennisDisplay.GetScores();
+
+        Console.WriteLine("-----");
+
+        CounterLog coinGameLog = new CounterLog(new CoinGameScoring());
+        coinGameLog.LoggingAdd();
+        coinGameLog.LoggingAdd();
+        coinGameLog.LoggingAdd();
+        coinGameLog.LoggingLose();
+        coinGameLog.LoggingLose();
+        coinGameLog.LoggingLose();
+        coinGameLog.LoggingLose();
+        coinGameLog.ShowLogs();
     }
 }

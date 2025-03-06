@@ -10,3 +10,7 @@
 ## クラス図
 
 <img width="716" alt="image" src="https://github.com/user-attachments/assets/64160785-0a7a-46d0-8f92-e7ba6624de0b" />
+
+# 宿題
+- コインゲーム（実装側）を足す
+- 抽象側に機能を足す
