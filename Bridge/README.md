@@ -14,3 +14,5 @@
 # 宿題
 - コインゲーム（実装側）を足す
 - 抽象側に機能を足す
+
+<img width="856" alt="image" src="https://github.com/user-attachments/assets/5bbe6f5b-ccb5-48fc-b80e-323e2276be60" />
