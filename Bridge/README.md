@@ -17,3 +17,6 @@
 - 抽象側に機能を足す
  - 得点の加減と同時にログを記録していく機能
  - 得点ログをまとめて表示する機能
+
+<img width="856" alt="image" src="https://github.com/user-attachments/assets/5bbe6f5b-ccb5-48fc-b80e-323e2276be60" />
+
