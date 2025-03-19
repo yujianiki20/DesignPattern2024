@@ -1,0 +1,15 @@
+/Users/mori/repos/design/Composit/bin/Debug/net9.0/adapter
+/Users/mori/repos/design/Composit/bin/Debug/net9.0/adapter.deps.json
+/Users/mori/repos/design/Composit/bin/Debug/net9.0/adapter.runtimeconfig.json
+/Users/mori/repos/design/Composit/bin/Debug/net9.0/adapter.dll
+/Users/mori/repos/design/Composit/bin/Debug/net9.0/adapter.pdb
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.AssemblyInfoInputs.cache
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.AssemblyInfo.cs
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.csproj.CoreCompileInputs.cache
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.sourcelink.json
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.dll
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/refint/adapter.dll
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.pdb
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/adapter.genruntimeconfig.cache
+/Users/mori/repos/design/Composit/obj/Debug/net9.0/ref/adapter.dll
