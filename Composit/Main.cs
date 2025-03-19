@@ -1,5 +1,6 @@
 public abstract class TaskComponent
 {
+    
     public string Name { get; protected set; }
     public abstract TimeSpan Duration { get; }
 
