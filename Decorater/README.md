@@ -14,3 +14,7 @@
 それにエフェクトをかけていくのがコンクリートデコレーター役
 
 ## クラス図
+
+<img width="1072" alt="image" src="https://github.com/user-attachments/assets/a121e36c-348c-4729-856f-b3bbf1c94b72" />
+
+https://drive.google.com/file/d/1ehmFnMD3KmaPcUrvkTXtUSQmYeba3gdU/view?usp=sharing
