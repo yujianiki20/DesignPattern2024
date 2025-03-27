@@ -107,8 +107,8 @@ public class Program {
         Console.WriteLine(comp_bass.Process());
 
         
-        Console.WriteLine("# ディストーションを追加したいがコンプレッサーを最後にする");
-        Sound dist_bass = new Compresser(new Distortion(new CleanBass()));
+        Console.WriteLine("#シンプルなベースにディストーションを追加");
+        Sound dist_bass = new Distortion(comp_bass);
         Console.WriteLine(dist_bass.Process());
 
 
