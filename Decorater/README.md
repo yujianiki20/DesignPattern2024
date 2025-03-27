@@ -15,6 +15,12 @@
 
 ## クラス図
 
+[<img width="1113" alt="image" src="https://github.com/user-attachments/assets/08b13d17-6630-427c-be2b-132c0c618d1c" />
+](https://try.ruby-lang.org/)
+
+https://drive.google.com/file/d/1ehmFnMD3KmaPcUrvkTXtUSQmYeba3gdU/view?usp=sharing
+
+
 
 # 宿題
 - adapterとの違い 
