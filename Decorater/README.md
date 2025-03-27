@@ -15,8 +15,7 @@
 
 ## クラス図
 
-[<img width="1113" alt="image" src="https://github.com/user-attachments/assets/08b13d17-6630-427c-be2b-132c0c618d1c" />
-](https://try.ruby-lang.org/)
+<img width="1113" alt="image" src="https://github.com/user-attachments/assets/08b13d17-6630-427c-be2b-132c0c618d1c" />
 
 https://drive.google.com/file/d/1ehmFnMD3KmaPcUrvkTXtUSQmYeba3gdU/view?usp=sharing
 
@@ -31,3 +30,29 @@ https://drive.google.com/file/d/1ehmFnMD3KmaPcUrvkTXtUSQmYeba3gdU/view?usp=shari
     - adapterは機能を追加しない
 - P181? java.io パッケージとデコレーターパターンC# で考える
 - (オンオフ-とかパラメーター調整　できればやってみる)
+
+
+# 宿題'
+## adapterパターンとの違い・継承移譲について
+書籍を見るとアダプターパターンでは委譲と継承、両方のサンプルが紹介されていた。
+委譲と委譲はabstractやinterface、とは関係なくクラス間の関係
+→本ではabstractで書いてるけど、パターンをネットで調べるとinterfaceを使っている例が多いとかがあって混乱していた。
+abstractでもinterfaceでも機能、クラスの関係性としてパターンに合致していればどちらでもいいことがわかった。
+
+- 継承
+ - 元のクラスの機能を引き継ぐ。
+ - 機能を使えるし発展させられる
+- 委譲
+  - （委譲する側）が（委譲される側）のインスタンスを中に持っている
+  - だから継承とは違うけど、（委譲する側）がそのインスタンスを扱うなら「機能の継承」と近い
+  - 委譲のパターンは所有してるインスタンスをちゃんとコントロールできていないと完全な委譲ではないんじゃないか？
+
+### adapterとDecoratorとの違い
+- どっちも使いたいものをラップする（委譲adapterの場合）
+- adapterは包むと別のものになる
+  - 扱いたい形に変えてもらうのがadapter
+- Decoratorは包んでも同じもの
+  - だからまた同じように扱える
+
+
+
