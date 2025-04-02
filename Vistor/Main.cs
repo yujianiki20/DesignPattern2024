@@ -111,36 +111,36 @@ public class Fuzz : Effecter {
 // メイン テスト実行
 public class Program {
     public static void Main() {
-        // 無加工のエレキギター原音
-        Sound clean_guitar = new CleanGuitar();
-        Console.WriteLine(clean_guitar.Process());
+        // // 無加工のエレキギター原音
+        // Sound clean_guitar = new CleanGuitar();
+        // Console.WriteLine(clean_guitar.Process());
 
-        // 無加工のベース原音
-        Sound clean_bass = new CleanBass();
-        Console.WriteLine(clean_bass.Process());
-
-
-        // エフェクターを追加 プリセット的に追加ができる
-        Console.WriteLine("# エレキギターにエフェクターを追加");
-
-        Sound distortion = new Distortion(new CleanGuitar());
-        Console.WriteLine(distortion.Process());
-
-        Sound reverb_dist = new Reverb(distortion);
-        Console.WriteLine(reverb_dist.Process());
+        // // 無加工のベース原音
+        // Sound clean_bass = new CleanBass();
+        // Console.WriteLine(clean_bass.Process());
 
 
-        // ベースにエフェクターを追加
-        Console.WriteLine("# ベースにエフェクターを追加");
+        // // エフェクターを追加 プリセット的に追加ができる
+        // Console.WriteLine("# エレキギターにエフェクターを追加");
 
-        Sound comp_bass = new Compresser(new CleanBass());
-        Console.WriteLine("# シンプルなベースプリセット");
-        Console.WriteLine(comp_bass.Process());
+        // Sound distortion = new Distortion(new CleanGuitar());
+        // Console.WriteLine(distortion.Process());
+
+        // Sound reverb_dist = new Reverb(distortion);
+        // Console.WriteLine(reverb_dist.Process());
+
+
+        // // ベースにエフェクターを追加
+        // Console.WriteLine("# ベースにエフェクターを追加");
+
+        // Sound comp_bass = new Compresser(new CleanBass());
+        // Console.WriteLine("# シンプルなベースプリセット");
+        // Console.WriteLine(comp_bass.Process());
 
         
-        Console.WriteLine("#シンプルなベースにディストーションを追加");
-        Sound dist_bass = new Distortion(comp_bass);
-        Console.WriteLine(dist_bass.Process());
+        // Console.WriteLine("#シンプルなベースにディストーションを追加");
+        // Sound dist_bass = new Distortion(comp_bass);
+        // Console.WriteLine(dist_bass.Process());
 
 
         //　他色々組み合わせ
