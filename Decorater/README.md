@@ -35,7 +35,7 @@ https://drive.google.com/file/d/1ehmFnMD3KmaPcUrvkTXtUSQmYeba3gdU/view?usp=shari
 # 宿題'
 ## adapterパターンとの違い・継承移譲について
 書籍を見るとアダプターパターンでは委譲と継承、両方のサンプルが紹介されていた。
-委譲と委譲はabstractやinterface、とは関係なくクラス間の関係
+委譲と継承はabstractやinterface、とは関係なくクラス間の関係
 →本ではabstractで書いてるけど、パターンをネットで調べるとinterfaceを使っている例が多いとかがあって混乱していた。
 abstractでもinterfaceでも機能、クラスの関係性としてパターンに合致していればどちらでもいいことがわかった。
 
@@ -46,6 +46,12 @@ abstractでもinterfaceでも機能、クラスの関係性としてパターン
   - （委譲する側）が（委譲される側）のインスタンスを中に持っている
   - だから継承とは違うけど、（委譲する側）がそのインスタンスを扱うなら「機能の継承」と近い
   - 委譲のパターンは所有してるインスタンスをちゃんとコントロールできていないと完全な委譲ではないんじゃないか？
+  - 一部の委譲もある
+  自分自身とその先でなんとかする→継承
+  やりたいことをぶん投げてる→委譲
+
+  
+
 
 ### adapterとDecoratorとの違い
 - どっちも使いたいものをラップする（委譲adapterの場合）
@@ -54,5 +60,8 @@ abstractでもinterfaceでも機能、クラスの関係性としてパターン
 - Decoratorは包んでも同じもの
   - だからまた同じように扱える
 
+## java.ioのような例 C#
+    Stream stream = new FileStream("file.txt", FileMode.Open);
 
-
+    Stream bufferedStream = new BufferedStream(new FileStream("file.txt", FileMode.Open));
+    Stream memoryStream = new MemoryStream(new byte[] { 0x41, 0x42, 0x43 });

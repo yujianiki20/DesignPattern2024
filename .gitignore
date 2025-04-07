@@ -1,0 +1,41 @@
+# Build results (全階層対応)
+**/bin/
+**/obj/
+
+# Visual Studio files
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet packages
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Dotnet tools
+*.dotCover
+*.coverage
+*.coveragexml
+
+# Resharper
+**/_ReSharper*/
+*.DotSettings.user
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# Others
+*.tmp
+*.bak
+Text/typeTest.md

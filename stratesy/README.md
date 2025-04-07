@@ -10,7 +10,6 @@
 
 ## クラス図
 
-<img width="734" alt="image" src="https://github.com/user-attachments/assets/16b4ee83-e1be-4ac4-979e-e697dac90bc0" />
 
-drow.io
-https://drive.google.com/file/d/1B_b9uTVWDSpK8x_1wxcv4S1CapBDKxKd/view?usp=sharing
+# 課題
+- テンプレートメソッドなど他のパターンで適用させてやってみる。
