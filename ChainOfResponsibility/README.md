@@ -10,3 +10,5 @@
 誰かが多く負担する、何円単位までの負担なら許すか、チェーンの組み合わせによって変更できる。
 
 ## クラス図
+
+<img width="918" alt="image" src="https://github.com/user-attachments/assets/969e0dff-013a-4cbe-ba29-4982ba1e0c04" />
