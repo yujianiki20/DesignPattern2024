@@ -9,3 +9,5 @@
 それぞれのクラスはFacadeがまとめて扱って、Facadeからはひとつのメソッドで全て実行するようになっています。
 
 ## クラス図
+
+<img width="821" alt="image" src="https://github.com/user-attachments/assets/c550326f-5dde-4120-95b7-ca464f76b72e" />
