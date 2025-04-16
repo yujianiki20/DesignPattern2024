@@ -11,3 +11,16 @@
 ## クラス図
 
 <img width="821" alt="image" src="https://github.com/user-attachments/assets/c550326f-5dde-4120-95b7-ca464f76b72e" />
+
+
+## フィードバックメモ
+- uses より強い依存 creates
+- 窓口がたくさんあるのはおかしい
+  - なのでprivateコンストラクタを作らせない
+  - singletonにすることが多い
+
+## 宿題
+- package化する 15-1
+  - プロジェクトわける
+  - その他大勢を見せなくする！
+  - Facadeだけ見えるようにする

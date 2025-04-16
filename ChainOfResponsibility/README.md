@@ -12,3 +12,11 @@
 ## クラス図
 
 <img width="918" alt="image" src="https://github.com/user-attachments/assets/969e0dff-013a-4cbe-ba29-4982ba1e0c04" />
+
+## 宿題
+- Supportメソッドを再帰じゃなくてループで書き換え
+
+- privateは同じクラスならアクセスできるのでインスタンスが違ってもアクセスできる
+- privateはインスタンスの外からアクセスできないわけではない
+- rubyはダメ
+連結リスト-配列で外から回る

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+// 請求の内容、これを元に割り勘の条件を決める
 class Bill
 {
     public int TotalPrice { get; }
@@ -12,8 +13,10 @@ class Bill
         PeopleCount = peopleCount;
     }
 
+    // 条件の計算用プロパティ
     public double PerPerson => (double)TotalPrice / PeopleCount;
     public int PerPersonInt => TotalPrice / PeopleCount;
+    // 余り
     public int Remainder => TotalPrice % PeopleCount;
 }
 
@@ -31,23 +34,22 @@ abstract class SplitHandler
     public SplitHandler SetNext(SplitHandler next)
     {
         this.next = next;
-        return this;
+        return next;//??? //未解決
     }
 
     public void Support(Bill bill)
     {
-        if (Resolve(bill))
+        SplitHandler obj = this;
+        while (obj != null)
         {
-            Done(bill);
+            if (obj.Resolve(bill))
+            {
+                obj.Done(bill);
+                return;
+            }
+            obj = obj.next;
         }
-        else if (next != null)
-        {
-            next.Support(bill);
-        }
-        else
-        {
-            Fail(bill);
-        }
+        Fail(bill);
     }
 
     protected abstract bool Resolve(Bill bill);
@@ -68,7 +70,7 @@ abstract class SplitHandler
     }
 }
 
-//コンクリートハンドラー
+//コンクリートハンドラー役
 /// 全員ピッタリ割り切れる
 class ExactSplit : SplitHandler
 {
@@ -93,13 +95,13 @@ class RoughSplit : SplitHandler
 
     protected override bool Resolve(Bill bill)
     {
-        if ()
+        // 100円単位で割り切れる場合
+        if (bill.Remainder == 0 && bill.PerPerson % 100 == 0)
         {
-            Console.WriteLine($"全員ぴったり {bill.PerPersonInt}円ずつ払えます。（100円単位OK）");
+            Console.WriteLine($"全員ぴったり {bill.PerPersonInt}円ずつ払う。（100円単位OK）");
             return true;
         }
-
-        return false; // 1円単位なら割り切れてても拒否
+        return false;
     }
 }
 
@@ -109,13 +111,18 @@ class HundredYenSplit : SplitHandler
     public HundredYenSplit(string name) : base(name) { }
 
     protected override bool Resolve(Bill bill)
-    {
-        if ()
+    {        
+        int basePrice = bill.PerPersonInt;
+        int down = (int)Math.Floor(basePrice / 100.0) * 100; // 100円単位で切り下げ
+        int up = down + 100; // 100円単位で切り上げ
+        int total = down * (bill.PeopleCount - 1) + up;
+
+        if (total >= bill.TotalPrice)
         {
-            // 100円誰かが多く払うことで解決するケース
+            // 100円単位で1人が多く払うことで解決するケース
+            Console.WriteLine($"1人は{up}円払い、残りの{bill.PeopleCount - 1}人は{down}円ずつ払うことで解決します。");
             return true;
         }
-
         return false;
     }
 }
@@ -127,12 +134,6 @@ class TenYenSplit : SplitHandler
 
     protected override bool Resolve(Bill bill)
     {
-        if (total >= bill.TotalPrice)
-        {
-            // 10円誰かが多く払うことで解決するケース
-            return true;
-        }
-
         return false;
     }
 }
@@ -144,11 +145,6 @@ class YenAdjustmentSplit : SplitHandler
 
     protected override bool Resolve(Bill bill)
     {
-        if (bill.Remainder > 0)
-        {
-            // 1人が余りを負担することで解決するケース
-            return true;
-        }
         return false;
     }
 }
@@ -158,25 +154,32 @@ class Program
 {
     static void Main()
     {
+
+
         var testCases = new List<Bill>
         {
-            new Bill(1000, 4),
-            new Bill(1030, 4),
-            new Bill(1010, 4),
-            new Bill(1003, 4),
+            new Bill(4400, 4),
+            new Bill(4100, 4),
+            new Bill(4080, 4),
+            new Bill(60, 4),
             new Bill(1001, 4),
             new Bill(1001, 3),
             new Bill(1011, 3)
         };
         // 大雑把スタイル 100円単位なら誰かが多めに出しても良いグループ
+        /// 4000円を4人で割る
+        /// 4100円なら一人は1100円負担してあとの3人は1000円
+        /// 4080円なら一人は1080円負担してあとの3人は1000円
         RunTest(testCases, () =>
-            new RoughSplit("Rough")
+            new ExactSplit("Exact")
                 .SetNext(new HundredYenSplit("Hundred"))
                 .SetNext(new TenYenSplit("Ten"))
                 .SetNext(new YenAdjustmentSplit("Adjust"))
         );
 
         // 平等スタイル できるだけ細かく割り勘する
+        /// 4000円を4人で割る
+        /// 4100円なら1025円ずつだけどややこしいので1020x3 と 一人1040の負担とする（TenYenSplit）が解決
         RunTest(testCases, () =>
             new ExactSplit("Exact")
                 .SetNext(new YenAdjustmentSplit("Adjust"))
