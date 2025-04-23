@@ -10,9 +10,10 @@ public interface Mediator
 // コリーグ役
 public interface Colleague
 {
-        void ReceiveCommand(string command);
+    void ReceiveCommand(string command);
 }
 
+// コンクリートコリーグ役　センサー
 public class SensorDevice : Colleague
 {
     private Mediator mediator;
@@ -45,6 +46,8 @@ public class SensorDevice : Colleague
     
 }
 
+// コンクリートコリーグ役　照明
+
 public class LightDevice : Colleague
 {
     private Mediator mediator;
@@ -62,6 +65,8 @@ public class LightDevice : Colleague
             Console.WriteLine("[照明] ライトを消灯");
     }
 }
+
+// コンクリートコリーグ役　エアコン
 
 public class AirconDevice : Colleague
 {
