@@ -14,3 +14,5 @@
 センサー・家電（コリーグ）からメディエーターにアクションのきっかけを渡し、メディエーターで家電制御の条件を管理しています。
 
 ## クラス図
+
+<img width="724" alt="image" src="https://github.com/user-attachments/assets/26a28ecd-110c-492d-b877-7f68428067da" />
