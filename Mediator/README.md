@@ -16,3 +16,21 @@
 ## クラス図
 
 <img width="777" alt="image" src="https://github.com/user-attachments/assets/ca182ca3-f876-4cbb-a9af-773c9db17fdb" />
+
+
+## フィードバック
+- C#ぽくない
+  - 静的型付け言語、コンパイル時のチェックを最大限に効かせる、のが目的
+  - stringで渡すと、厳密性がない
+  - if else がバグの原因になる
+  - ReeiveCommandは廃止すべき
+  - 本のサンプルが良さそう
+  - Mediatorは複雑で良い。コリーグはシンプルになる。
+  - Receiveコマンドが困りごとになる。
+    - abstractファクトリーで適用できないか？
+    - コマンドをクラス化
+      - アダプター、ストラテジーなどと組み合わせられる
+  
+## 宿題
+- ReceiveCommand() をリファクタリング
+- 温度センサーの追加

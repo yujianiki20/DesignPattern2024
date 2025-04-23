@@ -105,7 +105,7 @@ public class SmartHub : Mediator
     }
 
     public void ColleagueChanged()
-    {
+    {   
         if (sensor.GetSensorData())
         {
             light.ReceiveCommand("TurnOn");
