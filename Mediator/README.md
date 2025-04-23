@@ -15,4 +15,4 @@
 
 ## クラス図
 
-<img width="734" alt="image" src="https://github.com/user-attachments/assets/6a36670b-80b3-40c2-a23b-6e076d7bf1d4" />
+<img width="777" alt="image" src="https://github.com/user-attachments/assets/ca182ca3-f876-4cbb-a9af-773c9db17fdb" />
