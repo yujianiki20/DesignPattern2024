@@ -10,7 +10,7 @@ public interface Mediator
 // コリーグ役
 public interface Colleague
 {
-    void setColleagueEnabled(bool enabled);
+   void ReceiveCommand(string command);
 }
 
 // 可能な操作を規定するクラス。操作をうけつけるクラスはこのクラスを継承する
@@ -73,6 +73,7 @@ public class TemperatureSensorDevice : DeviceController, Colleague
     public TemperatureSensorDevice(Mediator mediator, string name) : base(name)
     {
         this.mediator = mediator;
+        temperature = 25; // 初期温度
     }
 
     public float GetTemperature()
@@ -141,11 +142,12 @@ public class SmartHub : Mediator
     public AirconDevice ac;
     public SensorDevice sensor;
     public TemperatureSensorDevice temperatureSensor;
-    public float temperature = 25;
+    public float temperature;
 
     public SmartHub()
     {
         CreateColleague();
+        temperature = temperatureSensor.GetTemperature();
     }
 
     public void CreateColleague()
@@ -154,7 +156,6 @@ public class SmartHub : Mediator
         ac = new AirconDevice(this, "エアコン");
         sensor = new SensorDevice(this, "人感センサー");
         temperatureSensor = new TemperatureSensorDevice(this, "温度センサー");
-        temperatureSensor.SetTemperature(temperature);
     }
 
     public void ColleagueChanged()
@@ -170,9 +171,11 @@ public class SmartHub : Mediator
             ac.TurnOff();
         }
 
-        // 寒すぎる → エアコンの温度を上げる
+        // 寒すぎる → エアコンを切る
+        temperature = temperatureSensor.GetTemperature();
         if (temperature < 20)
         {
+            Console.WriteLine($"[{temperatureSensor.name}] 温度が{temperature}度なのでエアコンを切ります");
             ac.TurnOff();
         }
     }
