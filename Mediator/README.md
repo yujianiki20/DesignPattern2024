@@ -30,7 +30,13 @@
   - abstractファクトリーで適用できないか？
   - コマンドをクラス化
   - アダプター、ストラテジーなどと組み合わせられる
-  
+
+
+
+---
+
+<img width="881" alt="image" src="https://github.com/user-attachments/assets/816bcc64-325a-4779-a559-08ae706364b5" />
+
 ## 宿題
 - ReceiveCommand() をリファクタリング
 - 温度センサーの追加
