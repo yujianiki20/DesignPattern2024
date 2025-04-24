@@ -10,7 +10,7 @@ public interface Mediator
 // コリーグ役
 public interface Colleague
 {
-   void ReceiveCommand(string command);
+   void SetColleagueEnabled(bool enabled);
 }
 
 // 可能な操作を規定するクラス。操作をうけつけるクラスはこのクラスを継承する
@@ -29,7 +29,6 @@ public abstract class DeviceController
     {
         Console.WriteLine($"[{name}] デバイスを停止");
     }
-    
 }
 
 // コンクリートコリーグ役　人感センサー
@@ -57,9 +56,16 @@ public class SensorDevice : DeviceController, Colleague
     {
         mediator.ColleagueChanged();
     }
-    public void ReceiveCommand(string command)
+    public void SetColleagueEnabled(bool enabled)
     {
-        Console.WriteLine($"[{name}] {command}");
+        if (enabled)
+        {
+            TurnOn();
+        }
+        else
+        {
+            TurnOff();
+        }
     }
     
 }
@@ -90,9 +96,16 @@ public class TemperatureSensorDevice : DeviceController, Colleague
     {
         mediator.ColleagueChanged();
     }
-    public void ReceiveCommand(string command)
+    public void SetColleagueEnabled(bool enabled)
     {
-        Console.WriteLine($"[{name}] {command}");
+        if (enabled)
+        {
+            TurnOn();
+        }
+        else
+        {
+            TurnOff();
+        }
     }
 }
 
@@ -106,9 +119,16 @@ public class LightDevice : DeviceController, Colleague
     {
         this.mediator = mediator;
     }
-    public void ReceiveCommand(string command)
+    public void SetColleagueEnabled(bool enabled)
     {
-        Console.WriteLine($"[{name}] {command}");
+        if (enabled)
+        {
+            TurnOn();
+        }
+        else
+        {
+            TurnOff();
+        }
     }
 }
 
@@ -129,9 +149,16 @@ public class AirconDevice : DeviceController, Colleague
         this.temperature = temperature;
         Console.WriteLine($"[{name}] 温度を{temperature}に設定");
     }
-    public void ReceiveCommand(string command)
+    public void SetColleagueEnabled(bool enabled)
     {
-        Console.WriteLine($"[{name}] {command}");
+        if (enabled)
+        {
+            TurnOn();
+        }
+        else
+        {
+            TurnOff();
+        }
     }
     
 }
@@ -162,13 +189,13 @@ public class SmartHub : Mediator
     {   
         if (sensor.GetSensorData())
         {
-            light.TurnOn();
-            ac.TurnOn();
+            light.SetColleagueEnabled(true);
+            ac.SetColleagueEnabled(true);
         }
         else
         {
-            light.TurnOff();
-            ac.TurnOff();
+            light.SetColleagueEnabled(false);
+            ac.SetColleagueEnabled(false);
         }
 
         // 寒すぎる → エアコンを切る
