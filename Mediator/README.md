@@ -35,7 +35,7 @@
 
 ---
 
-<img width="881" alt="image" src="https://github.com/user-attachments/assets/816bcc64-325a-4779-a559-08ae706364b5" />
+<img width="874" alt="image" src="https://github.com/user-attachments/assets/d6b76eb4-ee49-4a5f-b4d3-581207aba5e5" />
 
 ## 宿題
 - ReceiveCommand() をリファクタリング
