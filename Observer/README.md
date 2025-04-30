@@ -16,4 +16,4 @@
 サブジェクトによって連携させたいツールを変更することができます。
 
 ## クラス図
-<img width="898" alt="image" src="https://github.com/user-attachments/assets/3bf184f7-6813-4a33-a589-cd07165884e8" />
+<img width="921" alt="image" src="https://github.com/user-attachments/assets/31bf09ab-fe28-4e82-a44b-079556eded01" />
