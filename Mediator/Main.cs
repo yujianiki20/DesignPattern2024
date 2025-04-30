@@ -203,7 +203,7 @@ public class SmartHub : Mediator
         if (temperature < 20)
         {
             Console.WriteLine($"[{temperatureSensor.name}] 温度が{temperature}度なのでエアコンを切ります");
-            ac.TurnOff();
+            ac.SetColleagueEnabled(false);
         }
     }
 }
