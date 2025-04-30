@@ -127,14 +127,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        // ファイル保存
+        // ファイル保存時サブジェクト
         Subject subject1 = new FileSaveSubject("日記.txt");
         subject1.AddObserver(new LoggerObserver());
         subject1.AddObserver(new EmailObserver());
         subject1.AddObserver(new DropboxObserver());
         subject1.Execute();
 
-        // ファイル削除
+        // ファイル削除サブジェクト
         Subject subject2 = new FileDeleteSubject("日記.txt");
         subject2.AddObserver(new LoggerObserver());
         subject2.AddObserver(new DropboxObserver());
