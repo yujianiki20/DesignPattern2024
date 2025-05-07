@@ -93,6 +93,8 @@ public class Plant
 
 public class Memento
 {
+    // wide interface
+    // 
     internal string Name { get; }
     internal int Growth { get; }
     internal int Health { get; }

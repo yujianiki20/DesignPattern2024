@@ -24,7 +24,7 @@ class Program
             // 体力が50以下になったら状態を保存 保存はこの一回のみ
             if (plant.GetHealth() <= 50 && tempHealth > 50)
             {
-                memento = plant.CreateMemento();
+                memento = plant.CreateMemento(); /// 状態を保存
                 Console.WriteLine("状態を保存しました。");
                 tempHealth = plant.GetHealth();
             }
@@ -45,7 +45,7 @@ class Program
                 {
                     if (memento != null)
                     {
-                        plant.RestoreMemento(memento);
+                        plant.RestoreMemento(memento); /// 状態を復元
                         Console.WriteLine($"{memento.GetName()}の状態を復元しました。");
                     }
                     else
