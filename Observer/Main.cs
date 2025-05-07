@@ -10,6 +10,7 @@ public interface IObserver
 public abstract class Subject
 {
     private List<IObserver> observers = new List<IObserver>();
+    private bool isExecuted = false;
 
     public void AddObserver(IObserver observer)
     {
@@ -21,10 +22,18 @@ public abstract class Subject
     }
     public void NotifyObservers()
     {
+        if (isExecuted)
+        {
+            // Console.WriteLine("すでに実行しています");
+            isExecuted = false;
+            return;
+        }
+        isExecuted = true;
         foreach (IObserver observer in observers)
         {
             observer.Update(this);
         }
+        isExecuted = false;
     }
     public abstract string GetFileName();
     public abstract string GetFileText();
@@ -89,19 +98,27 @@ public class FileDeleteSubject : Subject
     }
     public override string GetFileText()
     {
-        return "";
+        return "deleted";
     }
 }
 // コンクリートオブザーバー
 // ログ出力オブザーバー
 public class LoggerObserver : IObserver
 {
+    // private bool isExecuted = false;
     public void Update(Subject subject)
     {
+        // if (isExecuted)
+        // {
+        //     Console.WriteLine("すでにログ出力しています");
+        //     return;
+        // }
+        // isExecuted = true;
         Console.WriteLine($"{subject.GetFileName()} を {subject.GetAction()} しました");
         Console.WriteLine("--テキストの内容↓↓---");
         Console.WriteLine($"{subject.GetFileText()}");
         Console.WriteLine("--テキストの内容↑↑---");
+        subject.Execute(); // 無限ループの再現
     }
 }
 
@@ -110,7 +127,7 @@ public class EmailObserver : IObserver
 {
     public void Update(Subject subject)
     {
-        Console.WriteLine($"{subject.GetFileName()} を {subject.GetAction()} しました");
+        Console.WriteLine($"{subject.GetFileName()} を {subject.GetAction()} しました メール送信");
     }
 }
 
@@ -134,10 +151,18 @@ class Program
         subject1.AddObserver(new DropboxObserver());
         subject1.Execute();
 
-        // ファイル削除サブジェクト
+        Console.WriteLine("");
+        Console.WriteLine("--ファイル削除サブジェクト--");
+        Console.WriteLine("");
+        // ファイル削除サブジェクト     
         Subject subject2 = new FileDeleteSubject("日記.txt");
         subject2.AddObserver(new LoggerObserver());
         subject2.AddObserver(new DropboxObserver());
         subject2.Execute();
+
+        Console.WriteLine("");
+        Console.WriteLine("--ファイル保存サブジェクト--");
+        Console.WriteLine("");
+        subject1.Execute(); // 再度実行
     }
 }
