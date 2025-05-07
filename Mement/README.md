@@ -15,4 +15,5 @@
   - 植物の体力が半分の時点で状態が保存され、枯れたらそこからやり直せる
 
 ## クラス図
-<img width="655" alt="image" src="https://github.com/user-attachments/assets/c7050d9c-8101-4e6a-aff7-f779fd80e63f" />
+<img width="636" alt="image" src="https://github.com/user-attachments/assets/3172bf54-3a75-4140-96f6-6cef2ac17acf" />
+
