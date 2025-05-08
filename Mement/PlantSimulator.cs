@@ -12,7 +12,8 @@ public class Plant
     private int growthMaxTemp; // 成長上限温度
     private int damageCount; // 連続で至適温度外になった回数
     private int currentTemp; // 現在の温度
-
+    private int day; // 日数
+    private readonly Random random = new Random(); // 乱数生成器
     public Plant(string name, int growthMinTemp, int growthMaxTemp)
     {
         this.name = name;
@@ -22,16 +23,24 @@ public class Plant
         this.health = 100;
         this.damageCount = 0;
         this.currentTemp = 0;
+        this.day = 0;
     }
 
     public void Update(int currentTemp)
-    {        
+    {           
+        this.day++;
         this.currentTemp = currentTemp;
         // 成長判定
         if (currentTemp >= growthMinTemp && currentTemp <= growthMaxTemp)
         {
             growth += 1;
             damageCount = 0; // 至適温度の範囲内に入ったらカウントをリセット
+            // 5%の確率でめっちゃ成長する
+            if (random.Next(0, 100) < 5)
+            {
+                growth += 10;
+                Console.WriteLine($"成長ボーナス");
+            }
         }
         else
         {
@@ -52,7 +61,7 @@ public class Plant
 
     public Memento CreateMemento()
     {
-        return new Memento(name, growth, health, damageCount);
+        return new Memento(name, growth, health, damageCount, day);
     }
 
     public void RestoreMemento(Memento memento)
@@ -61,6 +70,7 @@ public class Plant
         this.growth = memento.Growth;
         this.health = memento.Health;
         this.damageCount = memento.DamageCount;
+        this.day = memento.Day;
     }
 
     public bool IsGameOver()
@@ -80,7 +90,7 @@ public class Plant
 
     public void ShowStatus()
     {
-        Console.WriteLine($"[{name}] 成長度: {growth} / 体力: {health} / 温度: {currentTemp}");
+        Console.WriteLine($"[{name}] {day}日目 - 成長度: {growth} / 体力: {health} "); // 温度: {currentTemp} ");
     }
 
     public int GetHealth()
@@ -93,24 +103,31 @@ public class Plant
 
 public class Memento
 {
-    // wide interface
-    // 
+    // wide interface オリジネイターへ公開するフィールド
     internal string Name { get; }
     internal int Growth { get; }
     internal int Health { get; }
     internal int DamageCount { get; }
-    internal Memento(string name, int growth, int health, int damageCount)
+    internal int Day { get; }
+    internal Memento(string name, int growth, int health, int damageCount, int day)
     {
         this.Name = name;
         this.Growth = growth;
         this.Health = health;
         this.DamageCount = damageCount;
+        this.Day = day;
     }
 
-    // narrow interface
+    // narrow interface ケアテイカーへ公開するメソッド
     public string GetName()
     {
         return Name;
+    }
+
+    // 日数を取得するメソッド これは保存データのラベルとして機能する
+    public int GetDay()
+    {
+        return Day;
     }
 }
 }       

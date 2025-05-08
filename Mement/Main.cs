@@ -7,11 +7,11 @@ class Program
         Plant plant = new Plant("バナナ", 19, 22); // 19~22度で成長するバナナ
         plant.ShowStatus();
 
+        Dictionary<int, Memento> mementos = new Dictionary<int, Memento>(); // mementoを保存する辞書
         Random random = new Random();
         int baseTemp = 20; // 基準温度
         Memento memento = null;
-        int updateCount = 0;
-        int tempHealth = 100;
+        int currentDay = 0;
 
         // 0.1秒ごとに成長していく（update）
         while (true)
@@ -20,48 +20,28 @@ class Program
             int currentTemp = baseTemp + random.Next(-5, 6);
             plant.Update(currentTemp);
             plant.ShowStatus();
-            
-            // 体力が50以下になったら状態を保存 保存はこの一回のみ
-            if (plant.GetHealth() <= 50 && tempHealth > 50)
-            {
-                memento = plant.CreateMemento(); /// 状態を保存
-                Console.WriteLine("状態を保存しました。");
-                tempHealth = plant.GetHealth();
-            }
-            
+
+            // 状態を保存（日付をキーとして使用）
+            memento = plant.CreateMemento();
+            mementos[memento.GetDay()] = memento;
+
             if (plant.IsGameOver())
             {
-                Console.WriteLine("1. 体力50から再開");
-                Console.WriteLine("2. 終了");
-                string input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))
+                Console.Write("\n復元したい日付を入力してください: ");
+                string? input = Console.ReadLine();
+                
+                if (string.IsNullOrEmpty(input) || !int.TryParse(input, out int choice) || 
+                    !mementos.ContainsKey(choice))
                 {
                     Console.WriteLine("無効な入力です。終了します。");
                     break;
                 }
-                
-                int choice = int.Parse(input);
-                if (choice == 1)
-                {
-                    if (memento != null)
-                    {
-                        plant.RestoreMemento(memento); /// 状態を復元
-                        Console.WriteLine($"{memento.GetName()}の状態を復元しました。");
-                    }
-                    else
-                    {
-                        Console.WriteLine("保存された状態がありません。終了します。");
-                        break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("終了します。");
-                    break;
-                }
+
+                plant.RestoreMemento(mementos[choice]);
+                Console.WriteLine($"{choice}日目の状態を復元しました。");
             }
             
-            Thread.Sleep(50);
+            Thread.Sleep(100);
         }
     }
 }       
