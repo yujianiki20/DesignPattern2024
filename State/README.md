@@ -13,6 +13,11 @@
 - 移動中　スイッチは無視。客席へつくと配膳モードへ
 - 提供中 料理がとられてスイッチが押されるとキッチンへ戻る
 
+- PressSwitch()
+  - ロボットにただ一つあるボタンを押した時の動作
+- Complete()
+  - 客席や厨房に移動するなど目的を達成する
+
 ## クラス図
 <img width="833" alt="image" src="https://github.com/user-attachments/assets/dc5cb806-12f7-4e36-820e-6ef2164587c3" />
 
