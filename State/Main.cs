@@ -96,6 +96,7 @@ public class ServingState : IState
         else
         {
             Console.WriteLine("料理をとってからボタンを押してください。");
+
         }
     }
     public void DoComplete(Context context) { }
@@ -120,8 +121,13 @@ public class ReturnState : IState
 }
 public class Program
 {
+    public static void OnButtonClick()
+    {
+        context.PressSwitch();
+    }
     public static void Main()
     {
+        
         var context = new Context();
 
         // 1. 料理がまだ乗っていない
@@ -145,6 +151,6 @@ public class Program
         context.Complete();  // 厨房に戻ったら待機状態へ移行
 
         // 6. 待機状態へ戻る
-        context.PressSwitch();  // 「待機状態に戻る」
+        context.PressSwitch();  // 「待機状態に戻る」確認。
     }
 }
