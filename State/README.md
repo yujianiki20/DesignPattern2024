@@ -13,3 +13,7 @@
 - 移動中　スイッチは無視。客席へつくと配膳モードへ
 - 提供中 料理がとられてスイッチが押されるとキッチンへ戻る
 
+## クラス図
+<img width="833" alt="image" src="https://github.com/user-attachments/assets/dc5cb806-12f7-4e36-820e-6ef2164587c3" />
+
+![image](https://github.com/user-attachments/assets/339c7d40-f038-487c-b7fc-cf6fdfe364ef)
