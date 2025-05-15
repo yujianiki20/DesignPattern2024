@@ -45,3 +45,9 @@
 - Completeメソッドを分けた
   - DoExecute()
   - DoComplete()
+
+コンテキストのChangeState()で状態が変わると、DoExecuteが呼ばれ、状態毎の動作を処理する。DoExecute()の処理が完了するとその中でDoCompleteが呼ばれ、ChangeState()する
+
+
+# クラス図2
+<img width="945" alt="image" src="https://github.com/user-attachments/assets/5b1f2e06-4048-4bf4-9f4a-20b07e245c7b" />
