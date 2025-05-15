@@ -42,4 +42,6 @@
 - 状態遷移の管理を、どちらかに寄せる。
 
 ## 宿題'
-- mediatorなどを使って特殊な状態を管理できないか
+- Completeメソッドを
+  - DoExecute()
+  - DoComplete()

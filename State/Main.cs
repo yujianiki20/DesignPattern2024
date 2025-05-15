@@ -1,8 +1,10 @@
+using System.Threading;
+
 // 状態インターフェース
 public interface IState
 {
     void DoPressSwitch(Context context);
-    // 客席に着いた時の処理用のメソッド
+    void DoExecute(Context context){ }
     void DoComplete(Context context){ }
 }
 
@@ -22,15 +24,12 @@ public class Context
     {
         State.DoPressSwitch(this);
     }
-    public void Complete()
-    {
-        // ここはロボットの目的を達成する処理と状態変更を行う
-        State.DoComplete(this);
-    }
     public void ChangeState(IState state)
     {
         this.State = state;
+        this.State.DoExecute(this);
     }   
+
 }
 
 public class WaitingState : IState
@@ -43,20 +42,26 @@ public class WaitingState : IState
     }
     public void DoPressSwitch(Context context)
     {
-        Console.WriteLine("スイッチが押されました");
+        Console.WriteLine(" スイッチが押されました");
 
         if (context.OnMeal)
         {
-            Console.WriteLine("お客様へ配膳します。");
-            context.ChangeState(DeliveringState.GetInstance());
+            Console.WriteLine(" お客様へ配膳します。");
+            DoComplete(context);
         }
         else
         {
-            Console.WriteLine("料理を乗せてください。");
+            Console.WriteLine(" 料理を乗せてください。");
         }
     }
-    // 客席に着いた時の処理用のメソッド このstateは何もしない
-    public void DoComplete(Context context) { }
+    public void DoExecute(Context context) {
+        Console.WriteLine("Start: WaitingState");
+        Console.WriteLine(" 待機開始...");
+    }
+    public void DoComplete(Context context) { 
+        context.ChangeState(DeliveringState.GetInstance());
+    }
+
 }
 public class DeliveringState : IState
 {
@@ -68,11 +73,17 @@ public class DeliveringState : IState
     }
     public void DoPressSwitch(Context context)
     {
-        Console.WriteLine("スイッチが押されました。移動中のため無視します。");
+        Console.WriteLine(" スイッチが押されました。移動中のため無視します。");
+    }
+    public void DoExecute(Context context) {
+        Console.WriteLine("Start: DeliveringState");
+        Console.WriteLine(" 運搬開始...");
+        Thread.Sleep(3000); // 3秒待機
+        DoComplete(context);
     }
     public void DoComplete(Context context)
     {
-        Console.WriteLine("客席に到着しました。提供モードへ移行します。");
+        Console.WriteLine(" 客席に到着しました。提供モードへ移行します。");
         context.ChangeState(ServingState.GetInstance());
     }
 }
@@ -90,16 +101,21 @@ public class ServingState : IState
 
         if (!context.OnMeal)
         {
-            Console.WriteLine("料理を受け取ったのを確認。厨房へ戻ります。");
-            context.ChangeState(ReturnState.GetInstance());
+            Console.WriteLine(" 料理を受け取ったのを確認。厨房へ戻ります。");
+            DoComplete(context);
         }
         else
         {
-            Console.WriteLine("料理をとってからボタンを押してください。");
-
+            Console.WriteLine(" 料理をとってからボタンを押してください。");
         }
     }
-    public void DoComplete(Context context) { }
+    public void DoExecute(Context context) {
+        Console.WriteLine("Start: ServingState");
+        Console.WriteLine(" 料理を提供します、料理がとられるまで待機します。");
+    }
+    public void DoComplete(Context context) { 
+        context.ChangeState(ReturnState.GetInstance());
+    }
 }
 public class ReturnState : IState
 {
@@ -111,46 +127,46 @@ public class ReturnState : IState
     }
     public void DoPressSwitch(Context context)
     {
-        Console.WriteLine("スイッチが押されました。厨房へ移動中のため無視します。");
+        Console.WriteLine(" スイッチが押されました。厨房へ移動中のため無視します。");
+    }
+    public void DoExecute(Context context) {
+        Console.WriteLine("Start: ReturnState");
+        Console.WriteLine(" 厨房に戻ります。");
+        Thread.Sleep(3000); // 3秒待機
+        DoComplete(context);
     }
     public void DoComplete(Context context)
     {
-        Console.WriteLine("厨房に戻りました。待機します。");
+        Console.WriteLine(" 厨房に戻りました。待機します。");
         context.ChangeState(WaitingState.GetInstance());
     }
 }
 public class Program
 {
-    public static void OnButtonClick()
-    {
-        context.PressSwitch();
-    }
     public static void Main()
     {
         
         var context = new Context();
 
         // 1. 料理がまだ乗っていない
-        context.PressSwitch();  // 「料理なし」
+        //context.PressSwitch();  // 「料理なし」
 
         // 2. 料理を乗せる
         context.OnMeal = true;
         context.PressSwitch();  // 「運搬開始」
 
         // 3. お客様の席に移動中
-        context.PressSwitch();  // この時はボタン押されても無視される
-        context.Complete();  // 客席に到着したら提供モードへ移行
+        //context.PressSwitch();  // この時はボタン押されても無視される
 
         // 4. まだ取られてない
-        context.OnMeal = true;
-        context.PressSwitch();  // 「まだ取られていない」
+        // context.OnMeal = true;
+        // context.PressSwitch();  // 「まだ取られていない」
 
         // 5. 取られた！
         context.OnMeal = false;
         context.PressSwitch();  // 「キッチンへ戻る」
-        context.Complete();  // 厨房に戻ったら待機状態へ移行
 
         // 6. 待機状態へ戻る
-        context.PressSwitch();  // 「待機状態に戻る」確認。
+        //context.PressSwitch();  // 「待機状態に戻る」確認。
     }
 }
