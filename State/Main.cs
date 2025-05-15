@@ -11,7 +11,7 @@ public interface IState
 // コンテキスト
 public class Context
 {
-    public IState State { get; set; }
+    private IState State { get; set; }
 
     public bool OnMeal { get; set; } = false;
 
