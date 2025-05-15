@@ -42,6 +42,7 @@
 - 状態遷移の管理を、どちらかに寄せる。
 
 ## 宿題'
-- Completeメソッドを
+- Completeメソッドを分けた
   - DoExecute()
   - DoComplete()
+コンテキストのChangeState()で状態が変わると、DoExecuteが呼ばれ、状態毎の動作を処理する。DoExecute()の処理が完了するとその中でDoCompleteが呼ばれ、ChangeState()する
