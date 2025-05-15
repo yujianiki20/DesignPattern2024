@@ -45,3 +45,6 @@
 - Completeメソッドを
   - DoExecute()
   - DoComplete()
+
+# クラス図2
+<img width="945" alt="image" src="https://github.com/user-attachments/assets/5b1f2e06-4048-4bf4-9f4a-20b07e245c7b" />
