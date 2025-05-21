@@ -12,4 +12,4 @@
 - 共有インスタンスの管理はFlyweightにまかせる
 
 ## クラス図
-<img width="610" alt="image" src="https://github.com/user-attachments/assets/fc82e59f-c329-4fce-bbef-601285bd641a" />
+<img width="611" alt="image" src="https://github.com/user-attachments/assets/229cc978-b612-4308-a65f-de6fed506502" />
