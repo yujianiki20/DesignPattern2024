@@ -36,7 +36,7 @@ public class StampFactory
     private StampFactory() { }
     public static StampFactory GetInstance => singleton;
 
-    public StampFlyweight Get(string name)
+    public StampFlyweight GetStamp(string name)
     {
         lock(this)
         {
@@ -62,7 +62,7 @@ public class FurnitureClient
 
     public void Put(string name, int x, int y)
     {
-        var furniture = _factory.Get(name);
+        var furniture = _factory.GetStamp(name);
         furniture.Render(x, y);
     }
 }
