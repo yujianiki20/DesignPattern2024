@@ -15,6 +15,5 @@
 ファイルが存在しない場合リアルサブジェクトによってテキストファイルが作られます。
 
 ## クラス図
+<img width="687" alt="image" src="https://github.com/user-attachments/assets/ae2e39a3-84d9-4bb9-9856-7b55ae3f947c" />
 
-## 疑問
-- lockはどう考えるべきか。
