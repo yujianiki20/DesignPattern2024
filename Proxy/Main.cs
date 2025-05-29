@@ -122,7 +122,7 @@ class Program
         Console.WriteLine("\n=== book info (新聞.txt) ===");
         Console.WriteLine(bookReader.GetBookInfo("新聞.txt"));
 
-        // どれを読むかユーザーに入力で選択してもらう処理
+        // どれを読むかユーザーにタイトルを入力してもらう
         Console.WriteLine("どの本を読みますか？");
         Console.Write("タイトルを入力してください:");
         string title = Console.ReadLine()!;
