@@ -25,3 +25,6 @@
 - MacroCommandクラスがあり、履歴の管理をしている
 - invokerからこのレシーバーとMacroCommandを扱う
 - メインでは入力からカラーコードを受け取り、invokerに渡す
+
+# クラス図
+<img width="853" alt="image" src="https://github.com/user-attachments/assets/6daedd09-3710-4353-869e-c40ceb41e1cc" />
