@@ -7,7 +7,7 @@ public interface ICommand
 {
     void Execute();
     void Undo();
-    ICommand? PrevCommand { get; set; }
+    ICommand? PrevCommand { get; set; } 
 }
 
 // レシーバー インターフェイス
@@ -58,7 +58,7 @@ public class ChangeBgColorCommand : ICommand
     private readonly IColorable _colorable;
     private readonly byte _r, _g, _b;
     private  byte _prevR, _prevG, _prevB; // 直前の色
-    private bool _getPrev = false;
+    private bool _getPrev = false; // 直前の色を一回だけ取得するフラグ
     public ICommand? PrevCommand { get; set; }
 
     public ChangeBgColorCommand(IColorable colorable, byte r, byte g, byte b)
@@ -84,16 +84,13 @@ public class ChangeBgColorCommand : ICommand
     public void Undo()
     {
         _colorable.SetColor(_prevR, _prevG, _prevB);
-    
     }
 }
 
 // インボーカー
 public class ColorManager
 {
-    private ICommand? _currentCommand;
-    private readonly Stack<ICommand> _redo = new Stack<ICommand>();
-
+    private ICommand? _currentCommand; // 直近のコマンドを保持しておく
     public void Invoke(ICommand cmd)
     {
         cmd.PrevCommand = _currentCommand;
@@ -104,18 +101,7 @@ public class ColorManager
     public void Undo()
     {
         _currentCommand?.Undo();
-        _redo.Push(_currentCommand);
-        _currentCommand = _currentCommand.PrevCommand; // 前のコマンドに戻る
-    }
-
-    public void Redo()
-    {
-        if (_redo.Count == 0) return;
-
-        ICommand cmd = _redo.Pop();
-        cmd.Execute();
-        cmd.PrevCommand = _currentCommand;
-        _currentCommand = cmd;
+        _currentCommand = _currentCommand?.PrevCommand;
     }
 }
 
@@ -126,7 +112,7 @@ internal class Program
     {
         Console.WriteLine("=== カラーコードを入力 ===");
         Console.WriteLine("  例)  ff8800   0044ff   00ff00");
-        Console.WriteLine("  quit で終了\n");
+        Console.WriteLine("  uでundo q で終了\n");
 
         IColorable receiver = new ConsoleColorReceiver();
         ColorManager manager = new ColorManager();
@@ -140,15 +126,11 @@ internal class Program
             {
                 continue;
             }
-            else if (str == "undo")
+            else if (str == "u")
             {
                 manager.Undo();
             }
-            else if (str == "redo")
-            {
-                manager.Redo();
-            }
-            else if (str == "quit")
+            else if (str == "q")
             {
                 break;
             }
