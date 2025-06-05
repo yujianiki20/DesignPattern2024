@@ -6,18 +6,26 @@ using System.Threading;
 public interface ICommand
 {
     void Execute();
+    void Undo();
+    ICommand? PrevCommand { get; set; } 
 }
 
 // レシーバー インターフェイス
 public interface IColorable
 {
     void SetColor(byte r, byte g, byte b);
+    void GetColor(out byte r, out byte g, out byte b);
 }
 
 public class ConsoleColorReceiver : IColorable
 {
+    private byte _r, _g, _b; // 現在の色を保持
+
     public void SetColor(byte r, byte g, byte b)
     {
+        _r = r;
+        _g = g;
+        _b = b;
         // 24bit TrueColor 背景
         Console.Write($"\u001b[48;2;{r};{g};{b}m");
 
@@ -35,39 +43,12 @@ public class ConsoleColorReceiver : IColorable
         }
         Console.SetCursorPosition(0, 0);
     }
-}
 
-// コンクリート コマンド 履歴保持用
-public class MacroCommand : ICommand
-{
-    private readonly List<ICommand> _commands;
-
-    public MacroCommand()
+    public void GetColor(out byte r, out byte g, out byte b) // 現在の色を取得 （Undo用）
     {
-        _commands = new List<ICommand>();
-    }
-
-    public void Execute()
-    {
-        foreach (var command in _commands)
-        {
-            command.Execute();
-            Thread.Sleep(1000);
-        }
-    }
-
-    public void AddCommand(ICommand command)
-    {
-        _commands.Add(command);
-    }
-
-    public void Undo()
-    {
-        if (_commands.Count == 0) return;
-
-        _commands.RemoveAt(_commands.Count - 1);
-        if (_commands.Count == 0) return;
-        _commands.Last().Execute();
+        r = _r;
+        g = _g;
+        b = _b;
     }
 }
 
@@ -76,6 +57,9 @@ public class ChangeBgColorCommand : ICommand
 {
     private readonly IColorable _colorable;
     private readonly byte _r, _g, _b;
+    private  byte _prevR, _prevG, _prevB; // 直前の色
+    private bool _getPrev = false; // 直前の色を一回だけ取得するフラグ
+    public ICommand? PrevCommand { get; set; }
 
     public ChangeBgColorCommand(IColorable colorable, byte r, byte g, byte b)
     {
@@ -83,38 +67,41 @@ public class ChangeBgColorCommand : ICommand
         _r = r;
         _g = g;
         _b = b;
+        PrevCommand = null;
     }
+
 
     public void Execute()
     {
+        if (!_getPrev)
+        {
+            _colorable.GetColor(out _prevR, out _prevG, out _prevB);
+            _getPrev = true;
+        }
         _colorable.SetColor(_r, _g, _b);
+    }
+
+    public void Undo()
+    {
+        _colorable.SetColor(_prevR, _prevG, _prevB);
     }
 }
 
 // インボーカー
 public class ColorManager
 {
-    private readonly MacroCommand _history;
-
-    public ColorManager()
-    {
-        _history = new MacroCommand();
-    }
-
+    private ICommand? _currentCommand; // 直近のコマンドを保持しておく
     public void Invoke(ICommand cmd)
     {
-        _history.AddCommand(cmd);
+        cmd.PrevCommand = _currentCommand;
         cmd.Execute();
+        _currentCommand = cmd;
     }
 
     public void Undo()
     {
-        _history.Undo();
-    }
-
-    public void Replay()
-    {
-        _history.Execute();
+        _currentCommand?.Undo();
+        _currentCommand = _currentCommand?.PrevCommand;
     }
 }
 
@@ -123,9 +110,9 @@ internal class Program
 {
     private static void Main()
     {
-        Console.WriteLine("=== BG Color (6-digit hex only) ===");
+        Console.WriteLine("=== カラーコードを入力 ===");
         Console.WriteLine("  例)  ff8800   0044ff   00ff00");
-        Console.WriteLine("  quit で終了\n");
+        Console.WriteLine("  uでundo q で終了\n");
 
         IColorable receiver = new ConsoleColorReceiver();
         ColorManager manager = new ColorManager();
@@ -139,11 +126,11 @@ internal class Program
             {
                 continue;
             }
-            else if (str == "replay")
+            else if (str == "u")
             {
-                manager.Replay();
+                manager.Undo();
             }
-            else if (str == "quit")
+            else if (str == "q")
             {
                 break;
             }
