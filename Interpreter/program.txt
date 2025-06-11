@@ -1,0 +1,6 @@
+WHAT タスク確認
+DONE
+WHAT issue#312 
+DONE issue#312
+WHAT スクラムMTG
+DONE 
