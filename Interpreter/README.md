@@ -31,3 +31,5 @@
 - 解釈結果は現在文字出力していますが、これを他のツール 例えばtoggleなどに逐次連携するような発展を想定しています。
 
 ## クラス図
+
+![image](https://github.com/user-attachments/assets/abf4af42-1b68-4014-baa6-c48bfa547bce)
